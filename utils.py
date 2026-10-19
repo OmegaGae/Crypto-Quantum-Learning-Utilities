@@ -95,7 +95,7 @@ def get_backend(backend_name: str=backend_name) -> Backend:
         backend = service.backend(backend_name)
     return backend
 
-
+# We will define a function to run the circuit on a simulator or real machine and retrieve the results.
 def run_circuit_and_get_counts(circuit:QuantumCircuit, backend:Backend, shots:int=1024, optimization_level:int=1)->dict:
     """Run the circuit on a simulator or real machine and retrieve the results.
     
