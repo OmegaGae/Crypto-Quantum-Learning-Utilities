@@ -87,7 +87,7 @@ import keyring
 keyring.set_password("https://quantum.cloud.ibm.com/", "JulesVerneKey", "<YOUR_IBM_QUANTUM_API_KEY>")
 ```
 
-Then `get_backend()` and `run_circuit_and_get_counts()` can be used from the notebooks. Never commit an API key to the repository.
+Then `get_backend()` and `run_circuit_and_get_counts()` can be used from the notebooks.
 
 ## Known limitations
 
