@@ -1,0 +1,5 @@
+# discard environment files
+.venv
+*.pyc
+# copyright issue - code not from me: useful for learning
+basics_*.ipynb
