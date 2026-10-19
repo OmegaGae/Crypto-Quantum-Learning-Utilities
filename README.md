@@ -66,12 +66,6 @@ Run the cryptography examples:
 python utils_crypto.py
 ```
 
-Run the fidelity example:
-
-```bash
-python utils.py
-```
-
 Open the notebooks:
 
 ```bash
