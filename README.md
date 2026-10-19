@@ -19,9 +19,9 @@ Post-quantum cryptography exists because quantum computers threaten the public-k
 | --- | --- |
 | `utils_crypto.py` | Classical ciphers and cryptanalysis tools (see below) |
 | `utils.py` | Qiskit / IBM Quantum helpers and a quantum state fidelity function |
-| `basic_quantum_circuits.ipynb` | Notebook: introductory quantum circuits with Qiskit |
-| `quantum_experimentations.ipynb` | Notebook: further quantum experiments |
-| `englisch_words_alpha.txt` | English word list used by the dictionary-based attacks |
+| `basic_quantum_circuits.ipynb` | Notebook: a Bell state (entanglement) built in Qiskit and run on a real IBM quantum computer and on a simulator |
+| `quantum_experimentations.ipynb` | Notebook: estimating the energy of a two-qubit state with a transverse-field Ising Hamiltonian, on hardware and on a noisy simulator |
+| `englisch_words_alpha.txt` | English word list used by the dictionary-based attacks (see Acknowledgements) |
 | `requirements.txt` | Python dependencies |
 
 ### `utils_crypto.py`: ciphers and attacks
@@ -47,6 +47,24 @@ Post-quantum cryptography exists because quantum computers threaten the public-k
 - `get_backend`: selects the least busy operational real device with at least 127 qubits, with a fallback by name
 - `run_circuit_and_get_counts`: transpiles a circuit for the chosen backend and runs it with the Qiskit Runtime `Sampler`, returning the measurement counts
 - `fidelity`: Uhlmann fidelity between two density matrices, with input checks (square, Hermitian, trace 1, positive semidefinite)
+
+### Notebooks
+
+**`basic_quantum_circuits.ipynb`**
+
+1. Checks the versions of Python, Qiskit, Qiskit Aer and Qiskit IBM Runtime.
+2. Builds a Bell state (phi-plus): a Hadamard gate on qubit 0 followed by a CNOT, then measures both qubits.
+3. Runs the circuit on a real IBM Quantum backend (the least busy device with at least 127 qubits), using the API key stored in the keyring, and on the local `AerSimulator`.
+4. Plots the measurement histograms, so the hardware results can be compared with the simulation.
+
+**`quantum_experimentations.ipynb`**
+
+Goal: estimate the energy of a two-qubit entangled state for the Hamiltonian `H = J * Z1 Z0 + hx * (X1 + X0)` (a two-qubit transverse-field Ising model, with `J = 1.0` and `hx = -0.5`).
+
+1. Prepares the state with Hadamard, CNOT, X and Z gates.
+2. Transpiles the circuit for the selected backend (optimization level 3), using `get_backend` from `utils.py`.
+3. Samples measurement counts on a real quantum computer and on a simulator with a noise model built from that backend.
+4. Computes the expectation value of the Hamiltonian (the energy) with the Qiskit Runtime `Estimator`, on hardware and on the noisy simulator, using a `SparsePauliOp` observable.
 
 ## Getting started
 
@@ -85,7 +103,7 @@ Then `get_backend()` and `run_circuit_and_get_counts()` can be used from the not
 
 ## Known limitations
 
-- `SimpleSubstitutionCipher.break_cipher_with_freq_and_dict` runs, but its key recovery is not as accurate as expected: frequency analysis plus dictionary matching only gives partial results.``break_cipher_with_word_pattern`` takes a different approach, based on word structure.
+- `SimpleSubstitutionCipher.break_cipher_with_freq_and_dict` runs, but its key recovery is not as accurate as expected: frequency analysis plus dictionary matching only gives partial results. `break_cipher_with_word_pattern` takes a different approach, based on word structure.
 - The word-pattern attack becomes less decisive with a very large dictionary, because more words share the same pattern.
 - All ciphers here are historical and insecure by design.
 
@@ -98,7 +116,7 @@ Planned next steps, moving from the fundamentals toward post-quantum cryptograph
 
 ## Acknowledgements
 
-``englisch_words_alpha.txt`` comes from [schemingduck/english-words-dictionary](https://github.com/schemingduck/english-words-dictionary/blob/master/words_alpha.txt), a fork of dwyl/english-words.
+`englisch_words_alpha.txt` comes from [schemingduck/english-words-dictionary](https://github.com/schemingduck/english-words-dictionary), a fork of [dwyl/english-words](https://github.com/dwyl/english-words).
 
 ## License
 
