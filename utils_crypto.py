@@ -541,7 +541,7 @@ class SimpleSubstitutionCipher:
 
     @classmethod
     def break_cipher_with_freq_and_dict(cls, ciphertext: str) -> tuple[str, dict]:
-        """Breaks a substitution cipher using frequency analysis and dictionary matching. -> NOT WORKING"""
+        """Breaks a substitution cipher using frequency analysis and dictionary matching. -> NOT WORKING WELL FOR BREAKING Cipher as dictionary is too big"""
         
         # Count letter frequencies in ciphertext
         letters_only = [c for c in ciphertext.upper() if c.isalpha()]
